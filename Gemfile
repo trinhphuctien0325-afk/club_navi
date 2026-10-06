@@ -65,3 +65,5 @@ end
 gem "devise", "~> 5.0"
 
 gem "mysql2", "~> 0.5.7"
+
+gem "json", "~> 2.19.9"

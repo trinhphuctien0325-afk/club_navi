@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+    devise_for :users, controllers: { registrations: "users_registrations" }
+    post "users/guest_sign_in", to: "guest_sessions#create", as: :guest_sign_in
   resources :posts, only: [:index]
   root "homes#top"
 get "about" => "homes#about"
