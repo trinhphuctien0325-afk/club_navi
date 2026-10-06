@@ -1,0 +1,27 @@
+<h1>口コミを投稿</h1>
+
+<%= form_with model: @post do |f| %>
+  <div>
+    <%= f.label :club_id, "クラブ" %>
+    <%= f.collection_select :club_id, @clubs, :id, :name, prompt: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :tag_id, "タグ" %>
+    <%= f.collection_select :tag_id, @tags, :id, :name, prompt: "選択してください" %>
+  </div>
+
+  <div>
+    <%= f.label :body, "口コミ" %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div>
+    <%= f.label :rating, "評価" %>
+    <%= f.select :rating, (1..5).map { |n| [n, n] }, prompt: "選択してください" %>
+  </div>
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "投稿一覧へ戻る", posts_path %>
