@@ -1,5 +1,9 @@
 <h1>口コミを投稿</h1>
 
+<% if @post.errors[:body].any? %>
+  <p role="alert">口コミを入力してください</p>
+<% end %>
+
 <%= form_with model: @post do |f| %>
   <div>
     <%= f.label :club_id, "クラブ" %>

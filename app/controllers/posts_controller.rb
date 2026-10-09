@@ -26,14 +26,16 @@ class PostsController < ApplicationController
     end
   end
 
-  def create
-    post = Post.new(post_params)
-    post.user = current_user
+    def create
+    @post = Post.new(post_params)
+    @post.user = current_user
 
-    if post.save
+    if @post.save
       redirect_to posts_path, notice: "投稿しました"
     else
-      redirect_to posts_path, alert: "投稿内容を確認してください"
+      @clubs = Club.order(:name)
+      @tags = Tag.order(:name)
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -50,6 +52,16 @@ class PostsController < ApplicationController
       @tags = Tag.order(:name)
       render :edit, status: :unprocessable_entity
     end
+  end
+
+    def destroy
+    post_record = Post.find(params[:id])
+    unless post_record.user == current_user && !current_user&.guest?
+      return redirect_to posts_path, alert: "自分の投稿のみ削除できます"
+    end
+
+    post_record.destroy!
+    redirect_to posts_path, notice: "投稿を削除しました"
   end
 
   private
