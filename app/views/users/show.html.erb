@@ -1,0 +1,17 @@
+<h1>マイページ</h1>
+<p>氏名：<%= current_user.name %></p>
+<p><%= link_to "登録情報を編集", edit_user_registration_path %></p>
+
+<h2>自分の投稿</h2>
+<% if @posts.any? %>
+  <% @posts.each do |post| %>
+    <article>
+      <h3><%= link_to post.club.name, post_path(post) %></h3>
+      <p>タグ：<%= post.tag.name %></p>
+      <p>評価：<%= post.rating %> / 5</p>
+      <p><%= post.body %></p>
+    </article>
+  <% end %>
+<% else %>
+  <p>まだ投稿はありません。</p>
+<% end %>
