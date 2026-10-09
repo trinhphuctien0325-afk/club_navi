@@ -43,4 +43,19 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to posts_path
     assert_equal user, Post.last.user
   end
+
+    test "投稿者本人は編集画面を開ける" do
+    user = User.create!(name: "編集者", email: "editor@example.com", password: "password")
+    post_record = Post.create!(
+      user: user, club: clubs(:one), tag: tags(:one), body: "元の口コミ", rating: 4
+    )
+    post user_session_path, params: {
+      user: { email: "editor@example.com", password: "password" }
+    }
+
+    get edit_post_path(post_record)
+
+    assert_response :success
+    assert_match "元の口コミ", response.body
+  end
 end

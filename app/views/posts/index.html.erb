@@ -7,7 +7,7 @@
 <% if @posts.any? %>
   <% @posts.each do |post| %>
     <article>
-      <h2><%= post.club.name %></h2>
+      <h2><%= link_to post.club.name, post_path(post) %></h2>
       <p>投稿者：<%= post.user.name %></p>
       <p>タグ：<%= post.tag.name %></p>
       <p>評価：<%= post.rating %> / 5</p>

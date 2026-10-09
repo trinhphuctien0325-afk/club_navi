@@ -1,0 +1,28 @@
+<h1>口コミを編集</h1>
+
+<% if @post.errors[:body].any? %>
+  <p role="alert">口コミを入力してください</p>
+<% end %>
+
+<%= form_with model: @post do |f| %>
+  <div>
+    <%= f.label :club_id, "クラブ" %>
+    <%= f.collection_select :club_id, @clubs, :id, :name %>
+  </div>
+
+  <div>
+    <%= f.label :tag_id, "タグ" %>
+    <%= f.collection_select :tag_id, @tags, :id, :name %>
+  </div>
+
+  <div>
+    <%= f.label :body, "口コミ" %>
+    <%= f.text_area :body %>
+  </div>
+
+  <p>評価：<%= @post.rating %> / 5</p>
+
+  <%= f.submit "更新する" %>
+<% end %>
+
+<%= link_to "投稿詳細へ戻る", post_path(@post) %>

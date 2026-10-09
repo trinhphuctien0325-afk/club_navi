@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
     devise_for :users, controllers: { registrations: "users_registrations" }
     post "users/guest_sign_in", to: "guest_sessions#create", as: :guest_sign_in
-  resources :posts, only: [:index, :new, :create]
+  resources :posts, only: [:index, :show, :new, :create, :edit, :update]
   root "homes#top"
 get "about" => "homes#about"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
