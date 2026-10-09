@@ -22,9 +22,19 @@
     <%= javascript_importmap_tags %>
   </head>
 
-   <body>
+  <body>
+    <header>
+      <nav>
+        <%= link_to "ClubNavi", root_path %>
+        <%= link_to "投稿一覧", posts_path %>
+        <% if user_signed_in? && !current_user.guest? %>
+          <%= link_to "マイページ", mypage_path %>
+        <% end %>
+      </nav>
+    </header>
+
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>
-   </body>
+  </body>
 </html>
