@@ -1,5 +1,12 @@
 <h1>投稿一覧</h1>
 
+<%= form_with url: posts_path, method: :get do |form| %>
+  <%= form.text_field :keyword,
+                      value: params[:keyword],
+                      placeholder: "口コミ本文を検索" %>
+  <%= form.submit "検索" %>
+<% end %>
+
 <% if user_signed_in? && !current_user.guest? %>
   <%= link_to "新規投稿", new_post_path %>
 <% end %>

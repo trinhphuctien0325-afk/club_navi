@@ -58,4 +58,43 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match "元の口コミ", response.body
   end
+
+    test "本文キーワードで投稿を絞り込める" do
+    user = User.create!(
+      name: "検索テスト",
+      email: "search@example.com",
+      password: "password"
+    )
+
+    Post.create!(
+      user: user,
+      club: clubs(:one),
+      tag: tags(:one),
+      body: "音楽が最高でした",
+      rating: 5
+    )
+
+    Post.create!(
+      user: user,
+      club: clubs(:one),
+      tag: tags(:one),
+      body: "料理がおいしかった",
+      rating: 4
+    )
+
+    get posts_path, params: { keyword: "音楽" }
+
+    assert_response :success
+    assert_match "音楽が最高でした", response.body
+    assert_no_match "料理がおいしかった", response.body
+  end
+
+    test "投稿一覧に本文検索フォームを表示する" do
+    get posts_path
+
+    assert_response :success
+    assert_select "form[action='#{posts_path}'][method='get']"
+    assert_select "input[name='keyword']"
+    assert_select "input[type='submit'][value='検索']"
+  end
 end
