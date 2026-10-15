@@ -1,4 +1,3 @@
-cat > README.md <<'EOF'
 # ClubNavi
 
 ## サイト概要
