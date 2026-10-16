@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit]
-  before_action :reject_guest, only: [:new, :create, :edit]
+  before_action :authenticate_user!, only: [ :new, :create, :edit ]
+  before_action :reject_guest, only: [ :new, :create, :edit ]
 
   def index
     @posts = Post.includes(:user, :club, :tag).order(created_at: :desc)
@@ -73,5 +73,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:club_id, :tag_id, :body, :rating)
   end
-
 end
