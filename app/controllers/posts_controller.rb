@@ -2,12 +2,17 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit]
   before_action :reject_guest, only: [:new, :create, :edit]
 
-   def index
+     def index
+    @tags = Tag.order(:name)
     @posts = Post.includes(:user, :club, :tag).order(created_at: :desc)
 
     if params[:keyword].present?
       keyword = ActiveRecord::Base.sanitize_sql_like(params[:keyword])
       @posts = @posts.where("posts.body LIKE ?", "%#{keyword}%")
+    end
+
+    if params[:tag_id].present?
+      @posts = @posts.where(tag_id: params[:tag_id])
     end
   end
 
