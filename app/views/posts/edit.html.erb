@@ -20,7 +20,10 @@
     <%= f.text_area :body %>
   </div>
 
-  <p>評価：<%= @post.rating %> / 5</p>
+  <div>
+    <%= f.label :rating, "評価" %>
+    <%= f.select :rating, (1..5).to_a %>
+  </div>
 
   <%= f.submit "更新する" %>
 <% end %>
