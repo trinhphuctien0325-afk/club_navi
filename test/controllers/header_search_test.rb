@@ -1,7 +1,7 @@
 require "test_helper"
 
 class HeaderSearchTest < ActionDispatch::IntegrationTest
-  test "ログイン中はヘッダーに投稿検索フォームを表示する" do
+  test "ログイン中はヘッダーに投稿検索フォームを1つ表示する" do
     user = User.create!(
       name: "検索テスト",
       email: "header-search@example.com",
@@ -11,9 +11,10 @@ class HeaderSearchTest < ActionDispatch::IntegrationTest
       user: { email: user.email, password: "password" }
     }
 
-    get root_path
+    get posts_path
 
-    assert_select "header form[action='#{posts_path}'][method='get']" do
+    assert_select "input[name='keyword']", count: 1
+    assert_select "header form[action='#{posts_path}'][method='get']", count: 1 do
       assert_select "input[name='keyword']"
       assert_select "input[type='submit'][value='検索']"
     end
