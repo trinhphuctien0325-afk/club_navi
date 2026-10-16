@@ -18,6 +18,15 @@ class PostTagSearchTest < ActionDispatch::IntegrationTest
   end
 
   test "タグの選択欄に選択したタグを表示する" do
+    user = User.create!(
+      name: "タグ選択",
+      email: "tag-select@example.com",
+      password: "password"
+    )
+    post user_session_path, params: {
+      user: { email: user.email, password: "password" }
+    }
+
     get posts_path, params: { tag_id: tags(:one).id }
 
     assert_response :success

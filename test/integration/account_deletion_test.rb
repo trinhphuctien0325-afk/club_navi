@@ -12,7 +12,7 @@ class AccountDeletionTest < ActionDispatch::IntegrationTest
       user: { email: user.email, password: "password" }
     }
 
-    assert_difference ["User.count", "Post.count"], -1 do
+    assert_difference [ "User.count", "Post.count" ], -1 do
       delete user_registration_path
     end
 
