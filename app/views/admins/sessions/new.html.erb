@@ -1,15 +1,15 @@
 <h1>管理者ログイン</h1>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div>
-    <%= f.label :email, "メールアドレス" %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
+  <div class="mb-3">
+    <%= f.label :email, "メールアドレス", class: "form-label" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true, class: "form-control" %>
   </div>
 
-  <div>
-    <%= f.label :password, "パスワード" %>
-    <%= f.password_field :password, autocomplete: "current-password", required: true %>
+  <div class="mb-3">
+    <%= f.label :password, "パスワード", class: "form-label" %>
+    <%= f.password_field :password, autocomplete: "current-password", required: true, class: "form-control" %>
   </div>
 
-  <%= f.submit "管理者ログイン" %>
+  <%= f.submit "管理者ログイン", class: "btn btn-primary" %>
 <% end %>

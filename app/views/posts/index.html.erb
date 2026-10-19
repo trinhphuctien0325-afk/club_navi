@@ -1,12 +1,12 @@
 <h1>投稿一覧</h1>
 
 <% if user_signed_in? && !current_user.guest? %>
-  <%= link_to "新規投稿", new_post_path %>
+  <%= link_to "新規投稿", new_post_path, class: "btn btn-primary mb-4" %>
 <% end %>
 
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-    <article>
+    <article class="card p-4 mb-4 shadow-sm">
       <h2><%= link_to post.club.name, post_path(post) %></h2>
       <p>投稿者：<%= post.user.name %></p>
       <p>タグ：<%= link_to post.tag.name, posts_path(tag_id: post.tag_id) %></p>

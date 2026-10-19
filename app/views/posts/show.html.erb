@@ -6,8 +6,8 @@
 <p><%= @post.body %></p>
 
 <% if user_signed_in? && !current_user.guest? && @post.user == current_user %>
-  <%= link_to "編集する", edit_post_path(@post) %>
-    <%= button_to "削除する", post_path(@post), method: :delete,
+  <%= link_to "編集する", edit_post_path(@post), class: "btn btn-outline-primary mb-2" %>
+    <%= button_to "削除する", post_path(@post), method: :delete, class: "btn btn-outline-danger mb-2",
         form: { data: { turbo_confirm: "この口コミを削除しますか？" } } %>
 <% end %>
 <%= link_to "投稿一覧へ戻る", posts_path %>
@@ -15,13 +15,13 @@
 <h2>コメント</h2>
 
 <% @post.comments.includes(:user).order(:created_at, :id).each do |comment| %>
-  <div>
+  <div class="border rounded p-3 mb-3">
     <p>投稿者：<%= comment.user.name %></p>
     <%= simple_format(comment.body) %>
 
     <% if user_signed_in? && !current_user.guest? && comment.user == current_user %>
       <%= button_to "コメントを削除", post_comment_path(@post, comment),
-          method: :delete,
+          method: :delete, class: "btn btn-outline-danger mb-2",
           form: { data: { turbo_confirm: "このコメントを削除しますか？" } } %>
     <% end %>
   </div>
@@ -31,9 +31,9 @@
   <%= form_with model: [@post, Comment.new] do |f| %>
     <div>
       <%= f.label :body, "コメント本文" %>
-      <%= f.text_area :body, rows: 3, required: true %>
+      <%= f.text_area :body, rows: 3, required: true, class: "form-control" %>
     </div>
-    <%= f.submit "コメントを投稿" %>
+    <%= f.submit "コメントを投稿", class: "btn btn-primary mt-3" %>
   <% end %>
 <% elsif user_signed_in? %>
   <p>ゲストはコメントできません。</p>

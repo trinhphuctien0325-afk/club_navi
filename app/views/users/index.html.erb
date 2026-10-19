@@ -1,15 +1,15 @@
 <h1>会員一覧</h1>
 
-<%= form_with url: users_path, method: :get do |f| %>
+<%= form_with url: users_path, method: :get, class: "d-flex flex-wrap align-items-center gap-2 mb-4" do |f| %>
   <%= f.label :keyword, "会員名" %>
-  <%= f.text_field :keyword, value: params[:keyword] %>
-  <%= f.submit "検索" %>
+  <%= f.text_field :keyword, value: params[:keyword], class: "form-control w-auto" %>
+  <%= f.submit "検索", class: "btn btn-primary" %>
 <% end %>
 
 <% if @users.any? %>
-  <ul>
+  <ul class="list-group">
     <% @users.each do |user| %>
-      <li><%= link_to user.name, user_path(user) %></li>
+      <li class="list-group-item"><%= link_to user.name, user_path(user) %></li>
     <% end %>
   </ul>
 <% else %>

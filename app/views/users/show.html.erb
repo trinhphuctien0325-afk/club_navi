@@ -2,13 +2,13 @@
 <p>氏名：<%= @user.name %></p>
 
 <% if @user == current_user && !current_user.guest? %>
-  <p><%= link_to "登録情報を編集", edit_user_registration_path %></p>
+  <p><%= link_to "登録情報を編集", edit_user_registration_path, class: "btn btn-outline-primary mb-3" %></p>
 <% end %>
 
 <h2><%= @user == current_user ? "自分の投稿" : "#{@user.name}さんの投稿" %></h2>
 <% if @posts.any? %>
   <% @posts.each do |post| %>
-    <article>
+    <article class="card p-4 mb-4 shadow-sm">
       <h3><%= link_to post.club.name, post_path(post) %></h3>
       <p>タグ：<%= post.tag.name %></p>
       <p>評価：<%= post.rating %> / 5</p>
