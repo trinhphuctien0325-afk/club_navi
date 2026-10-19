@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   post "users/guest_sign_in", to: "guest_sessions#create", as: :guest_sign_in
   get "mypage", to: "users#show", as: :mypage
+  resources :users, only: [ :index, :show ]
 
   resources :posts, only: [ :index, :show, :new, :create, :edit, :update, :destroy ] do
     resources :comments, only: [ :create, :destroy ], module: :posts

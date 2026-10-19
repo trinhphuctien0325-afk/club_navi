@@ -28,6 +28,9 @@
         <%= link_to "ClubNavi", root_path %>
         <%= link_to "投稿一覧", posts_path %>
         <%= link_to "About", about_path %>
+        <% if user_signed_in? %>
+          <%= link_to "会員一覧", users_path %>
+        <% end %>
 
         <% if user_signed_in? && !current_user.guest? %>
           <%= link_to "マイページ", mypage_path %>
