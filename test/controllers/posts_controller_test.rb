@@ -61,6 +61,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "元の口コミ", response.body
+
+    assert_select "select[name='post[rating]']" do
+      assert_select "option", count: 5
+      (1..5).each do |rating|
+        assert_select "option[value='#{rating}']", text: rating.to_s
+      end
+      assert_select "option[value='4'][selected]"
+    end
   end
 
   test "本文キーワードで投稿を絞り込める" do

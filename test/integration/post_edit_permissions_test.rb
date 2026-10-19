@@ -16,7 +16,7 @@ class PostEditPermissionsTest < ActionDispatch::IntegrationTest
     assert_redirected_to posts_path
   end
 
-    test "投稿者は口コミを更新できるが評価は変えられない" do
+  test "投稿者は口コミと評価を更新できる" do
     owner = User.create!(name: "投稿者", email: "update@example.com", password: "password")
     post_record = Post.create!(
       user: owner, club: clubs(:one), tag: tags(:one), body: "更新前", rating: 4
@@ -31,10 +31,10 @@ class PostEditPermissionsTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to post_path(post_record)
     assert_equal "更新後", post_record.reload.body
-    assert_equal 4, post_record.rating
+    assert_equal 1, post_record.rating
   end
 
-    test "他人の投稿は更新できない" do
+  test "他人の投稿は更新できない" do
     owner = User.create!(name: "投稿者", email: "owner-update@example.com", password: "password")
     viewer = User.create!(name: "別の会員", email: "viewer-update@example.com", password: "password")
     post_record = Post.create!(
@@ -50,7 +50,7 @@ class PostEditPermissionsTest < ActionDispatch::IntegrationTest
     assert_equal "元の口コミ", post_record.reload.body
   end
 
-    test "空の口コミは更新できずエラーを表示する" do
+  test "空の口コミは更新できずエラーを表示する" do
     owner = User.create!(name: "投稿者", email: "invalid-update@example.com", password: "password")
     post_record = Post.create!(
       user: owner, club: clubs(:one), tag: tags(:one), body: "元の口コミ", rating: 4

@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit ]
   before_action :reject_guest, only: [ :new, :create, :edit ]
 
-     def index
+  def index
     @tags = Tag.order(:name)
     @posts = Post.includes(:user, :club, :tag).order(created_at: :desc)
 
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
     @tags = Tag.order(:name)
   end
 
-    def edit
+  def edit
     @post = Post.find(params[:id])
     @clubs = Club.order(:name)
     @tags = Tag.order(:name)
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     end
   end
 
-    def create
+  def create
     @post = Post.new(post_params)
     @post.user = current_user
 
@@ -55,7 +55,7 @@ class PostsController < ApplicationController
       return redirect_to posts_path, alert: "自分の投稿のみ編集できます"
     end
 
-    if @post.update(params.require(:post).permit(:club_id, :tag_id, :body))
+    if @post.update(post_params)
       redirect_to post_path(@post), notice: "投稿を更新しました"
     else
       @clubs = Club.order(:name)
@@ -64,7 +64,7 @@ class PostsController < ApplicationController
     end
   end
 
-    def destroy
+  def destroy
     post_record = Post.find(params[:id])
     unless post_record.user == current_user && !current_user&.guest?
       return redirect_to posts_path, alert: "自分の投稿のみ削除できます"
