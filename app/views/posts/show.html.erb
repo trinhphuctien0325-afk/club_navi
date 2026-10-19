@@ -11,3 +11,32 @@
         form: { data: { turbo_confirm: "この口コミを削除しますか？" } } %>
 <% end %>
 <%= link_to "投稿一覧へ戻る", posts_path %>
+<hr>
+<h2>コメント</h2>
+
+<% @post.comments.includes(:user).order(:created_at, :id).each do |comment| %>
+  <div>
+    <p>投稿者：<%= comment.user.name %></p>
+    <%= simple_format(comment.body) %>
+
+    <% if user_signed_in? && !current_user.guest? && comment.user == current_user %>
+      <%= button_to "コメントを削除", post_comment_path(@post, comment),
+          method: :delete,
+          form: { data: { turbo_confirm: "このコメントを削除しますか？" } } %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if user_signed_in? && !current_user.guest? %>
+  <%= form_with model: [@post, Comment.new] do |f| %>
+    <div>
+      <%= f.label :body, "コメント本文" %>
+      <%= f.text_area :body, rows: 3, required: true %>
+    </div>
+    <%= f.submit "コメントを投稿" %>
+  <% end %>
+<% elsif user_signed_in? %>
+  <p>ゲストはコメントできません。</p>
+<% else %>
+  <p>コメントするには<%= link_to "ログイン", new_user_session_path %>してください。</p>
+<% end %>
