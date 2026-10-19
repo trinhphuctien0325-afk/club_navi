@@ -1,0 +1,17 @@
+<h1>会員一覧</h1>
+
+<%= form_with url: users_path, method: :get do |f| %>
+  <%= f.label :keyword, "会員名" %>
+  <%= f.text_field :keyword, value: params[:keyword] %>
+  <%= f.submit "検索" %>
+<% end %>
+
+<% if @users.any? %>
+  <ul>
+    <% @users.each do |user| %>
+      <li><%= link_to user.name, user_path(user) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>該当する会員はいません。</p>
+<% end %>
