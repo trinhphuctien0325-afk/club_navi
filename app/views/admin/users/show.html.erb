@@ -1,0 +1,12 @@
+<h1>会員詳細</h1>
+
+<p>ID：<%= @user.id %></p>
+<p>会員名：<%= @user.name %></p>
+<p>メールアドレス：<%= @user.email %></p>
+<p>会員種別：<%= @user.guest? ? "ゲスト" : "通常会員" %></p>
+
+<%= button_to "この会員を退会させる", admin_user_path(@user),
+    method: :delete,
+    form: { data: { turbo_confirm: "この会員と関連する口コミ・コメントを削除しますか？" } } %>
+
+<%= link_to "会員一覧へ戻る", admin_users_path %>
