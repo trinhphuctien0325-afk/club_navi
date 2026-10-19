@@ -18,14 +18,15 @@
     <link rel="apple-touch-icon" href="/icon.png">
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <header>
-      <nav>
-        <%= link_to "ClubNavi", root_path %>
+      <nav class="navbar navbar-expand-lg bg-light px-3 py-3 gap-3 flex-wrap">
+        <%= link_to "ClubNavi", root_path, class: "navbar-brand fw-bold" %>
         <%= link_to "投稿一覧", posts_path %>
         <%= link_to "About", about_path %>
         <% if user_signed_in? %>
@@ -34,29 +35,30 @@
 
         <% if user_signed_in? && !current_user.guest? %>
           <%= link_to "マイページ", mypage_path %>
-          <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary" %>
         <% else %>
           <%= link_to "新規登録", new_user_registration_path %>
           <%= link_to "ログイン", new_user_session_path %>
         <% end %>
       </nav>
             <% if user_signed_in? %>
-        <%= form_with url: posts_path, method: :get do |form| %>
+        <%= form_with url: posts_path, method: :get, class: "d-flex flex-wrap gap-2 px-3 py-3" do |form| %>
           <%= form.text_field :keyword,
                               value: params[:keyword],
-                              placeholder: "口コミ本文を検索" %>
+                              placeholder: "口コミ本文を検索", class: "form-control w-auto" %>
                                         <%= form.select :tag_id,
               options_from_collection_for_select(
                 Tag.order(:name), :id, :name, params[:tag_id]
               ),
-              { include_blank: "すべてのタグ" } %>
-          <%= form.submit "検索" %>
+              { include_blank: "すべてのタグ" }, { class: "form-select w-auto" } %>
+          <%= form.submit "検索", class: "btn btn-primary" %>
         <% end %>
       <% end %>
     </header>
 
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <main class="container my-4"><%= yield %></main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
 </html>

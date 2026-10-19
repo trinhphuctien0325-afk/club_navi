@@ -1,14 +1,14 @@
 <h1>ClubNavi</h1>
 <p>クラブのレビューを探せるサービスです。</p>
 
-<nav>
+<nav class="d-flex flex-wrap align-items-center gap-3 mt-4">
   <%= link_to "ClubNaviについて", about_path %>
 
   <% if user_signed_in? %>
-    <%= button_to "ログアウト", destroy_user_session_path, method: :delete %>
+    <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary" %>
   <% else %>
-    <%= link_to "会員登録", new_user_registration_path %>
-    <%= link_to "ログイン", new_user_session_path %>
-    <%= button_to "ゲストとして見る", guest_sign_in_path, method: :post %>
+    <%= link_to "会員登録", new_user_registration_path, class: "btn btn-primary" %>
+    <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary" %>
+    <%= button_to "ゲストとして見る", guest_sign_in_path, method: :post, class: "btn btn-outline-secondary" %>
   <% end %>
 </nav>

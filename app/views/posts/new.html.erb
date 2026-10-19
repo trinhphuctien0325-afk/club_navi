@@ -5,27 +5,27 @@
 <% end %>
 
 <%= form_with model: @post do |f| %>
-  <div>
-    <%= f.label :club_id, "クラブ" %>
-    <%= f.collection_select :club_id, @clubs, :id, :name, prompt: "選択してください" %>
+  <div class="mb-3">
+    <%= f.label :club_id, "クラブ", class: "form-label" %>
+    <%= f.collection_select :club_id, @clubs, :id, :name, { prompt: "選択してください" }, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= f.label :tag_id, "タグ" %>
-    <%= f.collection_select :tag_id, @tags, :id, :name, prompt: "選択してください" %>
+  <div class="mb-3">
+    <%= f.label :tag_id, "タグ", class: "form-label" %>
+    <%= f.collection_select :tag_id, @tags, :id, :name, { prompt: "選択してください" }, { class: "form-select" } %>
   </div>
 
-  <div>
-    <%= f.label :body, "口コミ" %>
-    <%= f.text_area :body %>
+  <div class="mb-3">
+    <%= f.label :body, "口コミ", class: "form-label" %>
+    <%= f.text_area :body, class: "form-control", rows: 5 %>
   </div>
 
-  <div>
-    <%= f.label :rating, "評価" %>
-    <%= f.select :rating, (1..5).map { |n| [n, n] }, prompt: "選択してください" %>
+  <div class="mb-3">
+    <%= f.label :rating, "評価", class: "form-label" %>
+    <%= f.select :rating, (1..5).map { |n| [n, n] }, { prompt: "選択してください" }, { class: "form-select" } %>
   </div>
 
-  <%= f.submit "投稿する" %>
+  <%= f.submit "投稿する", class: "btn btn-primary my-3" %>
 <% end %>
 
 <%= link_to "投稿一覧へ戻る", posts_path %>
