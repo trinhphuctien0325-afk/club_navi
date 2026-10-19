@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
-    test "should get index" do
+  test "should get index" do
     get posts_url
     assert_response :success
   end
@@ -44,10 +44,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_equal user, Post.last.user
   end
 
-    test "投稿者本人は編集画面を開ける" do
+  test "投稿者本人は編集画面を開ける" do
     user = User.create!(name: "編集者", email: "editor@example.com", password: "password")
     post_record = Post.create!(
-      user: user, club: clubs(:one), tag: tags(:one), body: "元の口コミ", rating: 4
+      user: user,
+      club: clubs(:one),
+      tag: tags(:one),
+      body: "元の口コミ",
+      rating: 4
     )
     post user_session_path, params: {
       user: { email: "editor@example.com", password: "password" }
@@ -57,5 +61,42 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "元の口コミ", response.body
+  end
+
+  test "本文キーワードで投稿を絞り込める" do
+    user = User.create!(
+      name: "検索テスト",
+      email: "search@example.com",
+      password: "password"
+    )
+
+    Post.create!(
+      user: user,
+      club: clubs(:one),
+      tag: tags(:one),
+      body: "音楽が最高でした",
+      rating: 5
+    )
+
+    Post.create!(
+      user: user,
+      club: clubs(:one),
+      tag: tags(:one),
+      body: "料理がおいしかった",
+      rating: 4
+    )
+
+    get posts_path, params: { keyword: "音楽" }
+
+    assert_response :success
+    assert_match "音楽が最高でした", response.body
+    assert_no_match "料理がおいしかった", response.body
+  end
+
+  test "未ログインでは本文検索フォームを表示しない" do
+    get posts_path
+
+    assert_response :success
+    assert_select "input[name='keyword']", count: 0
   end
 end

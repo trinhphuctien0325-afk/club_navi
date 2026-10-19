@@ -1,9 +1,14 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit]
-  before_action :reject_guest, only: [:new, :create, :edit]
+  before_action :authenticate_user!, only: [ :new, :create, :edit ]
+  before_action :reject_guest, only: [ :new, :create, :edit ]
 
-  def index
+   def index
     @posts = Post.includes(:user, :club, :tag).order(created_at: :desc)
+
+    if params[:keyword].present?
+      keyword = ActiveRecord::Base.sanitize_sql_like(params[:keyword])
+      @posts = @posts.where("posts.body LIKE ?", "%#{keyword}%")
+    end
   end
 
   def show
@@ -73,5 +78,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:club_id, :tag_id, :body, :rating)
   end
-
 end
