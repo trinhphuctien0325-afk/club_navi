@@ -1,0 +1,9 @@
+<h1>レビュー詳細</h1>
+
+<h2 class="h4"><%= @post.club.name %></h2>
+<p>投稿者：<%= @post.user.name %></p>
+<p>タグ：<%= @post.tag.name %></p>
+<p>評価：<%= @post.rating %> / 5</p>
+<%= simple_format(@post.body) %>
+
+<%= link_to "レビュー一覧へ戻る", admin_posts_path, class: "btn btn-outline-secondary" %>

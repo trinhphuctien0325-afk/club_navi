@@ -1,0 +1,22 @@
+<h1>レビュー一覧</h1>
+
+<%= link_to "会員一覧へ", admin_users_path, class: "btn btn-outline-secondary mb-3" %>
+
+<% @posts.each do |post| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h2 class="h5">
+        <%= link_to post.club.name, admin_post_path(post) %>
+      </h2>
+      <p>投稿者：<%= post.user.name %></p>
+      <p>タグ：<%= post.tag.name %></p>
+      <p>評価：<%= post.rating %> / 5</p>
+      <%= simple_format(post.body) %>
+
+      <%= button_to "レビューを削除", admin_post_path(post),
+          method: :delete,
+          class: "btn btn-outline-danger",
+          form: { data: { turbo_confirm: "このレビューと付属コメントを削除しますか？" } } %>
+    </div>
+  </div>
+<% end %>
