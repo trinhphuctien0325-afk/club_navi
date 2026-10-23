@@ -1,14 +1,36 @@
-<h1>ClubNavi</h1>
-<p>クラブのレビューを探せるサービスです。</p>
+<section class="text-center py-5">
+  <p class="fw-bold mb-3">
+    Club<span class="club-hero-accent">Navi</span>
+  </p>
 
-<nav class="d-flex flex-wrap align-items-center gap-3 mt-4">
-  <%= link_to "ClubNaviについて", about_path %>
+  <h1 class="display-5 fw-bold mb-4">
+    <span class="club-hero-accent">音楽</span>と<span class="club-hero-accent">雰囲気</span>で、<br>
+    次の<span class="club-hero-accent">Club</span>を見つけよう。
+  </h1>
 
-  <% if user_signed_in? %>
-    <%= button_to "ログアウト", destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary" %>
-  <% else %>
-    <%= link_to "会員登録", new_user_registration_path, class: "btn btn-primary" %>
-    <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-primary" %>
-    <%= button_to "ゲストとして見る", guest_sign_in_path, method: :post, class: "btn btn-outline-secondary" %>
-  <% end %>
-</nav>
+  <p class="fs-5 mb-5">
+    Clubのレビューを探せるサービスです。
+  </p>
+
+  <div class="d-flex flex-wrap justify-content-center gap-3">
+    <% if user_signed_in? %>
+      <%= link_to "投稿一覧を見る", posts_path,
+          class: "btn btn-primary btn-lg" %>
+      <%= button_to "Log out", destroy_user_session_path,
+          method: :delete,
+          class: "btn btn-outline-secondary btn-lg" %>
+    <% else %>
+      <%= button_to "ゲストとして見る", guest_sign_in_path,
+          method: :post,
+          class: "btn btn-primary btn-lg" %>
+      <%= link_to "Sign up", new_user_registration_path,
+          class: "btn btn-outline-primary btn-lg" %>
+      <%= link_to "Log in", new_user_session_path,
+          class: "btn btn-outline-secondary btn-lg" %>
+    <% end %>
+  </div>
+
+  <p class="mt-5">
+    <%= link_to "ClubNaviについて", about_path %>
+  </p>
+</section>

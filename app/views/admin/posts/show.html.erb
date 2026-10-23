@@ -2,7 +2,7 @@
 
 <h2 class="h4"><%= @post.club.name %></h2>
 <p>投稿者：<%= @post.user.name %></p>
-<p>タグ：<%= @post.tag.name %></p>
+<p>タグ：<%= @post.tag.display_name %></p>
 <p>評価：<%= @post.rating %> / 5</p>
 <%= simple_format(@post.body) %>
 

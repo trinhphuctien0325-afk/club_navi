@@ -1,4 +1,4 @@
-<h1>投稿一覧</h1>
+<h1>投稿<span class="club-hero-accent">一覧</span></h1>
 
 <% if user_signed_in? && !current_user.guest? %>
   <%= link_to "新規投稿", new_post_path, class: "btn btn-primary mb-4" %>
@@ -9,7 +9,7 @@
     <article class="card p-4 mb-4 shadow-sm">
       <h2><%= link_to post.club.name, post_path(post) %></h2>
       <p>投稿者：<%= post.user.name %></p>
-      <p>タグ：<%= link_to post.tag.name, posts_path(tag_id: post.tag_id) %></p>
+      <p>タグ：<%= link_to post.tag.display_name, posts_path(tag_id: post.tag_id) %></p>
       <p>評価：<%= post.rating %> / 5</p>
       <p><%= post.body %></p>
     </article>

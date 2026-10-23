@@ -8,3 +8,150 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+/* ClubNavi：全画面で使う色 */
+.club-app {
+  --club-bg: #10131c;
+  --club-surface: #1c2130;
+  --club-border: #3a4258;
+  --club-text: #f3f4f8;
+  --club-muted: #b9bfd0;
+  --club-accent: #8b5cf6;
+  --club-link: #c4b5fd;
+
+  min-height: 100vh;
+  background: var(--club-bg);
+  color: var(--club-text);
+  line-height: 1.8;
+}
+
+.club-app a {
+  color: var(--club-link);
+  text-underline-offset: 4px;
+}
+
+.club-app a:hover {
+  color: #ddd6fe;
+}
+
+/* ヘッダー */
+.club-navbar {
+  background: var(--club-surface);
+  border-bottom: 1px solid var(--club-border);
+}
+
+.club-navbar .navbar-brand {
+  color: var(--club-text);
+  font-size: 1.5rem;
+}
+
+.club-navbar > a:not(.navbar-brand) {
+  color: var(--club-text);
+  text-decoration: none;
+}
+
+.club-navbar > a:hover {
+  color: var(--club-link);
+}
+
+/* 本文とカード */
+.club-main {
+  max-width: 960px;
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+.club-app h1,
+.club-app h2 {
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.club-app .card {
+  background: var(--club-surface);
+  color: var(--club-text);
+  border: 1px solid var(--club-border);
+  border-radius: 10px;
+}
+
+.club-app .card h2 {
+  font-size: 1.4rem;
+}
+
+.club-app .card h2 a {
+  color: var(--club-text);
+  text-decoration: none;
+}
+
+.club-app .card h2 a:hover {
+  color: var(--club-link);
+}
+
+/* 入力欄 */
+.club-app .form-control,
+.club-app .form-select {
+  background-color: var(--club-surface);
+  color: var(--club-text);
+  border-color: var(--club-border);
+}
+
+.club-app .form-control::placeholder {
+  color: var(--club-muted);
+}
+
+.club-app .form-control:focus,
+.club-app .form-select:focus {
+  border-color: var(--club-accent);
+  box-shadow: 0 0 0 3px rgb(139 92 246 / 25%);
+}
+
+/* Bootstrapのボタン色を統一 */
+.club-app .btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #7440d8;
+  --bs-btn-border-color: #7440d8;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6533c3;
+  --bs-btn-hover-border-color: #6533c3;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #592bb0;
+  --bs-btn-active-border-color: #592bb0;
+}
+
+.club-app .btn-outline-primary {
+  --bs-btn-color: var(--club-link);
+  --bs-btn-border-color: var(--club-accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #7440d8;
+  --bs-btn-hover-border-color: #7440d8;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #592bb0;
+  --bs-btn-active-border-color: #592bb0;
+}
+
+.club-app .btn-outline-secondary {
+  --bs-btn-color: var(--club-text);
+  --bs-btn-border-color: #737d97;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #343d54;
+  --bs-btn-hover-border-color: #737d97;
+}
+
+/* メッセージがないときは余白も消す */
+.club-app .notice:empty,
+.club-app .alert:empty {
+  display: none;
+}
+
+/* キーボード操作時の選択位置 */
+.club-app a:focus-visible,
+.club-app button:focus-visible,
+.club-app input[type="submit"]:focus-visible {
+  outline: 3px solid var(--club-link);
+  outline-offset: 4px;
+}
+
+/* トップページの見出しを強調 */
+.club-hero-accent {
+  color: var(--club-link);
+}
