@@ -9,7 +9,7 @@
         <%= link_to post.club.name, admin_post_path(post) %>
       </h2>
       <p>投稿者：<%= post.user.name %></p>
-      <p>タグ：<%= post.tag.name %></p>
+      <p>タグ：<%= post.tag.display_name %></p>
       <p>評価：<%= post.rating %> / 5</p>
       <%= simple_format(post.body) %>
 

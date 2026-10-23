@@ -12,7 +12,7 @@
 
   <div class="mb-3">
     <%= f.label :tag_id, "タグ", class: "form-label" %>
-    <%= f.collection_select :tag_id, @tags, :id, :name, {}, { class: "form-select" } %>
+    <%= f.collection_select :tag_id, @tags, :id, :display_name, {}, { class: "form-select" } %>
   </div>
 
   <div class="mb-3">
